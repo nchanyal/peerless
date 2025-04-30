@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import Home from "./page";
+import Navbar from "./Navbar";
 
-describe("<Home />", () => {
+describe("<Navbar />", () => {
   it("should render", () => {
-    render(<Home />);
+    render(<Navbar />);
 
-    const elem = screen.getByText("joe");
+    const elem = screen.getByText("Peerless");
 
     expect(elem).toBeInTheDocument();
   });

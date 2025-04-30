@@ -1,3 +1,9 @@
+import Navbar from "@/components/Navbar/Navbar";
+
 export default function AvailablePage() {
-  return <h1>Available posts...</h1>;
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 }
