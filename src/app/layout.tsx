@@ -29,10 +29,8 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={`${inter.variable} antialiased h-screen`}>
-          {children}
-        </body>
+      <html lang="en" className={`${inter.variable}`}>
+        <body className={`antialiased h-screen`}>{children}</body>
       </html>
     </ClerkProvider>
   );

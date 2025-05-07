@@ -1,3 +1,11 @@
+import Navbar from "@/components/Navbar/Navbar";
+import SubNavbar from "@/components/SubNavbar/SubNavbar";
+
 export default function ClaimedPage() {
-  return <h1>Claimed posts...</h1>;
+  return (
+    <div>
+      <Navbar />
+      <SubNavbar />
+    </div>
+  );
 }
