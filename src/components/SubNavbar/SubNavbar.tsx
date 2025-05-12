@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { Package, Lock } from "lucide-react";
+import AddPostButton from "../AddPostButton/AddPostButton";
 
 enum ROUTE {
   Available = "/dashboard/available",
@@ -25,8 +26,8 @@ export default function SubNavbar() {
   return (
     <div>
       <h1 className="text-3xl font-semibold text-gray-800">Item Requests</h1>
-      <div>
-        <div className="flex justify-between flex-wrap max-w-60">
+      <div className="flex justify-between">
+        <div className="flex justify-between flex-wrap w-60">
           <Button
             className={`${
               isAvailable
@@ -52,6 +53,7 @@ export default function SubNavbar() {
             Claimed
           </Button>
         </div>
+        <AddPostButton />
       </div>
     </div>
   );
