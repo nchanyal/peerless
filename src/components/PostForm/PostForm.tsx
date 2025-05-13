@@ -21,7 +21,7 @@ import { UploadDropzone, UploadButton } from "@/utils/uploadthing";
 const formSchema = z.object({
   itemName: z
     .string()
-    .min(3, "Item name must be at least 3 characters!")
+    .min(3, "Item Name must be at least 3 characters!")
     .max(30, "Item name is too long!"),
   pickupCountry: z
     .string()

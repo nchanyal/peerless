@@ -25,7 +25,9 @@ export default function SubNavbar() {
 
   return (
     <div>
-      <h1 className="text-3xl font-semibold text-gray-800">Item Requests</h1>
+      <h1 className="text-3xl font-semibold text-gray-800 my-8">
+        Item Requests
+      </h1>
       <div className="flex justify-between">
         <div className="flex justify-between flex-wrap w-60">
           <Button

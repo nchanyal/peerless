@@ -1,11 +1,5 @@
-import Navbar from "@/components/Navbar/Navbar";
-import SubNavbar from "@/components/SubNavbar/SubNavbar";
+import Dashboard from "@/components/Dashboard/Dashboard";
 
 export default function ClaimedPage() {
-  return (
-    <div>
-      <Navbar />
-      <SubNavbar />
-    </div>
-  );
+  return <Dashboard />;
 }
