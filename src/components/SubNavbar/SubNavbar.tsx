@@ -55,7 +55,12 @@ export default function SubNavbar() {
             Claimed
           </Button>
         </div>
-        <AddPostButton />
+        <AddPostButton
+          itemName=""
+          pickupCountry=""
+          deliveryCity=""
+          imageUrl=""
+        />
       </div>
     </div>
   );

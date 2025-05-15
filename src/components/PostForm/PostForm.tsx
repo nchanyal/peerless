@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,41 +15,49 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { UploadDropzone, UploadButton } from "@/utils/uploadthing";
+import { UploadButton } from "@/utils/uploadthing";
+import { PostFormProps } from "@/interfaces/PostFormProps";
 
 const formSchema = z.object({
   itemName: z
     .string()
-    .min(3, "Item Name must be at least 3 characters!")
+    .min(3, "Item name must be at least 3 characters!")
     .max(30, "Item name is too long!"),
   pickupCountry: z
     .string()
-    .min(3, "Pickup Country must have at least 3 characters!")
-    .max(80, "Pickup Country is too long!"),
+    .min(3, "Pickup country must have at least 3 characters!")
+    .max(80, "Pickup country is too long!"),
   deliveryCity: z
     .string()
-    .min(3, "Delivery City must have at least 3 characters!")
-    .max(80, "Delivery City is too long!"),
-  imageUrl: z.string().url("Invalid URL"),
+    .min(3, "Delivery city must have at least 3 characters!")
+    .max(80, "Delivery city is too long!"),
+  imageUrl: z.string().url("You must upload an image for the item!"),
 });
 
-export default function PostForm() {
+export default function PostForm({
+  itemName,
+  pickupCountry,
+  deliveryCity,
+  imageUrl,
+  setOpen,
+}: PostFormProps) {
   // Define the form
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      itemName: "",
-      pickupCountry: "",
-      deliveryCity: "",
-      imageUrl: "",
+      itemName: itemName,
+      pickupCountry: pickupCountry,
+      deliveryCity: deliveryCity,
+      imageUrl: imageUrl,
     },
   });
 
   // Define the function to handle form submission
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-
-    // Close the modal
+    if (setOpen !== undefined) {
+      // Close the dialog
+      setOpen(false);
+    }
   };
 
   return (

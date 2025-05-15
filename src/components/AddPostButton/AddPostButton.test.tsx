@@ -1,21 +1,28 @@
 import { render, screen } from "@testing-library/react";
-import user from "@testing-library/user-event";
-import AddPostButton from "./AddPostButton";
+import userEvent from "@testing-library/user-event";
+import AddPostButton from "../AddPostButton/AddPostButton";
 
-describe("<AddPostButton />", () => {
-  it("should render", () => {
-    render(<AddPostButton />);
-  });
+describe("<PostForm />", () => {
+  it("should close the dialog when the form is submitted", async () => {
+    render(
+      <AddPostButton
+        itemName="Coffee Beans"
+        pickupCountry="Ethiopia"
+        deliveryCity="Washington, DC"
+        imageUrl="https://example.com/example.png"
+      />
+    );
 
-  it("should open a form to add a post when clicked", async () => {
-    render(<AddPostButton />);
+    const addButton = screen.getByRole("button", { name: "Add" });
 
-    const addButton = screen.getByText("Add");
-
-    await user.click(addButton);
+    await userEvent.click(addButton);
 
     const formTitle = screen.getByText("Add an Item Request");
 
-    expect(formTitle).toBeInTheDocument();
+    const submitButton = screen.getByRole("button", { name: "Submit" });
+
+    await userEvent.click(submitButton);
+
+    expect(formTitle).not.toBeInTheDocument();
   });
 });
