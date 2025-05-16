@@ -67,7 +67,7 @@ export default function PostForm({
           control={form.control}
           name="itemName"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mt-4 mb-6">
               <FormLabel>Item Name</FormLabel>
               <FormControl>
                 <Input {...field} />
@@ -80,7 +80,7 @@ export default function PostForm({
           control={form.control}
           name="pickupCountry"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-6">
               <FormLabel>Pickup Country</FormLabel>
               <FormControl>
                 <Input {...field} />
@@ -93,7 +93,7 @@ export default function PostForm({
           control={form.control}
           name="deliveryCity"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-6">
               <FormLabel>Delivery City</FormLabel>
               <FormControl>
                 <Input {...field} />
@@ -106,7 +106,7 @@ export default function PostForm({
           control={form.control}
           name="imageUrl"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-6">
               <FormControl>
                 <UploadButton
                   endpoint="imageUploader"
@@ -119,13 +119,19 @@ export default function PostForm({
                     console.error("Upload failed:", error);
                   }}
                   disabled={form.getValues("imageUrl") !== ""}
+                  className="ut-button:bg-slate-500"
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          className={`bg-blue-700 hover:bg-blue-600 hover:text-gray-50`}
+        >
+          Submit
+        </Button>
       </form>
     </Form>
   );
