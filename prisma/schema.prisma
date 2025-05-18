@@ -26,10 +26,10 @@ model Post {
   authorId  Int
   claimerId Int?
 
-  itemName        String
-  imageUrl        String
-  pickupCountry   String
-  deliveryCountry String
+  itemName      String
+  imageUrl      String
+  pickupCountry String
+  deliveryCity  String
 
   author  User  @relation("PostAuthor", fields: [authorId], references: [id])
   claimer User? @relation("PostClaimer", fields: [claimerId], references: [id])
