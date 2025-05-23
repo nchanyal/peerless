@@ -40,3 +40,25 @@ export async function syncUser() {
     console.log("Error in syncUser", error);
   }
 }
+
+export async function getUser() {
+  try {
+    const { userId } = await auth();
+
+    // Quit the function if the user isn't signed in
+    if (!userId) return;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        clerkId: userId,
+      },
+    });
+
+    // Quit the function if the user doesn't exist in the database
+    if (!user) return;
+
+    return user;
+  } catch (error) {
+    console.log("Error in getUser", error);
+  }
+}

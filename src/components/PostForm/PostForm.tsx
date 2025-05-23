@@ -17,6 +17,9 @@ import { Input } from "@/components/ui/input";
 
 import { UploadButton } from "@/utils/uploadthing";
 import { PostFormProps } from "@/interfaces/PostFormProps";
+import { createPost } from "@/actions/post.actions";
+import { twMerge } from "tailwind-merge";
+import { useState } from "react";
 
 const formSchema = z.object({
   itemName: z
@@ -41,6 +44,8 @@ export default function PostForm({
   imageUrl,
   setOpen,
 }: PostFormProps) {
+  const [isDisabled, setIsDisabled] = useState(false);
+
   // Define the form
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -53,10 +58,24 @@ export default function PostForm({
   });
 
   // Define the function to handle form submission
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (setOpen !== undefined) {
-      // Close the dialog
-      setOpen(false);
+      try {
+        setIsDisabled(true);
+
+        // Create a new post based on what the user filled in the fields
+        await createPost(
+          values.itemName,
+          values.imageUrl,
+          values.pickupCountry,
+          values.deliveryCity
+        );
+
+        // Close the dialog
+        setOpen(false);
+      } catch (error) {
+        console.log("Error in form submission", error);
+      }
     }
   };
 
@@ -119,7 +138,8 @@ export default function PostForm({
                     console.error("Upload failed:", error);
                   }}
                   disabled={form.getValues("imageUrl") !== ""}
-                  className="ut-button:bg-slate-500"
+                  className="ut-button:ut-readying:bg-slate-500 ut-button:ut-ready:bg-slate-500 ut-button:ut-uploading:bg-slate-400 ut-button:data-[state=disabled]:bg-slate-400"
+                  config={{ cn: twMerge }}
                 />
               </FormControl>
               <FormMessage />
@@ -128,7 +148,8 @@ export default function PostForm({
         />
         <Button
           type="submit"
-          className={`bg-blue-700 hover:bg-blue-600 hover:text-gray-50`}
+          className={`bg-blue-700 hover:bg-blue-600 hover:text-gray-50 disabled:bg-blue-500`}
+          disabled={isDisabled}
         >
           Submit
         </Button>
