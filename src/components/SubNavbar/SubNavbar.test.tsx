@@ -2,23 +2,25 @@ import { render, screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import SubNavbar from "./SubNavbar";
 import { useRouter, usePathname } from "next/navigation";
+import { vi } from "vitest";
 
-jest.mock("next/navigation", () => ({
-  useRouter: jest.fn(),
-  usePathname: jest.fn(),
+// Replace Jest mocks with Vitest mocks
+vi.mock("next/navigation", () => ({
+  useRouter: vi.fn(),
+  usePathname: vi.fn(),
 }));
 
 describe("<SubNavBar />", () => {
-  let pushMock: jest.Mock;
+  let pushMock: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
-    pushMock = jest.fn();
-    (useRouter as jest.Mock).mockReturnValue({ push: pushMock });
+    pushMock = vi.fn();
+    (useRouter as ReturnType<typeof vi.fn>).mockReturnValue({ push: pushMock });
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
-    cleanup(); // clear out DOM between renders
+    vi.clearAllMocks();
+    cleanup();
   });
 
   it("should exist", () => {
@@ -27,7 +29,6 @@ describe("<SubNavBar />", () => {
 
   it("should render a pair of buttons on the left", () => {
     render(<SubNavbar />);
-
     const availableButton = screen.getByText("Available");
     const claimedButton = screen.getByText("Claimed");
 
@@ -36,7 +37,9 @@ describe("<SubNavBar />", () => {
   });
 
   it("should show the 'Available' button as selected initially", () => {
-    (usePathname as jest.Mock).mockReturnValue("/dashboard/available");
+    (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
+      "/dashboard/available"
+    );
     render(<SubNavbar />);
 
     const availableButton = screen.getByText("Available");
@@ -47,18 +50,20 @@ describe("<SubNavBar />", () => {
   });
 
   it("should update the selection when the 'Claimed' button is clicked", async () => {
-    (usePathname as jest.Mock).mockReturnValue("/dashboard/available");
+    (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
+      "/dashboard/available"
+    );
     const { rerender } = render(<SubNavbar />);
 
     const availableButton = screen.getByText("Available");
     const claimedButton = screen.getByText("Claimed");
 
-    // Simulate user clicking "Claimed" (this would cause a router push)
     await userEvent.click(claimedButton);
     expect(pushMock).toHaveBeenCalledWith("/dashboard/claimed");
 
-    // Simulate route change to /dashboard/claimed
-    (usePathname as jest.Mock).mockReturnValue("/dashboard/claimed");
+    (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
+      "/dashboard/claimed"
+    );
     rerender(<SubNavbar />);
 
     expect(claimedButton).toHaveAttribute("aria-selected", "true");
@@ -66,7 +71,9 @@ describe("<SubNavBar />", () => {
   });
 
   it("should update the selection when the 'Available' button after clicking 'Claimed'", async () => {
-    (usePathname as jest.Mock).mockReturnValue("/dashboard/available");
+    (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
+      "/dashboard/available"
+    );
     const { rerender } = render(<SubNavbar />);
 
     const availableButton = screen.getByText("Available");
@@ -75,15 +82,17 @@ describe("<SubNavBar />", () => {
     await userEvent.click(claimedButton);
     expect(pushMock).toHaveBeenCalledWith("/dashboard/claimed");
 
-    // Simulate route change to /dashboard/claimed
-    (usePathname as jest.Mock).mockReturnValue("/dashboard/claimed");
+    (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
+      "/dashboard/claimed"
+    );
     rerender(<SubNavbar />);
 
     await userEvent.click(availableButton);
     expect(pushMock).toHaveBeenCalledWith("/dashboard/available");
 
-    // Simulate route change to /dashboard/claimed
-    (usePathname as jest.Mock).mockReturnValue("/dashboard/available");
+    (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
+      "/dashboard/available"
+    );
     rerender(<SubNavbar />);
 
     expect(availableButton).toHaveAttribute("aria-selected", "true");
@@ -91,7 +100,9 @@ describe("<SubNavBar />", () => {
   });
 
   it("should not redirect if the 'Available' button is clicked multiple times once selected", async () => {
-    (usePathname as jest.Mock).mockReturnValue("/dashboard/available");
+    (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
+      "/dashboard/available"
+    );
     render(<SubNavbar />);
 
     const availableButton = screen.getByText("Available");
@@ -103,7 +114,9 @@ describe("<SubNavBar />", () => {
   });
 
   it("should not redirect if the 'Claimed' button is clicked multiple times once selected", async () => {
-    (usePathname as jest.Mock).mockReturnValue("/dashboard/claimed");
+    (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
+      "/dashboard/claimed"
+    );
     render(<SubNavbar />);
 
     const claimedButton = screen.getByText("Claimed");
