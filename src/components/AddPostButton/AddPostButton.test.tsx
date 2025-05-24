@@ -1,6 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import AddPostButton from "../AddPostButton/AddPostButton";
+import { vi } from "vitest";
+
+vi.mock("../../actions/post.actions", () => ({
+  createPost: vi.fn().mockResolvedValue(undefined),
+}));
 
 describe("<PostForm />", () => {
   it("should close the dialog when the form is submitted", async () => {
