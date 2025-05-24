@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { getUser } from "./user.actions";
+import { auth } from "@clerk/nextjs/server";
 
 export async function createPost(
   itemName: string,
@@ -12,7 +13,7 @@ export async function createPost(
   try {
     const user = await getUser();
 
-    if (user === undefined) return;
+    if (!user) return;
 
     await prisma.post.create({
       data: {
@@ -25,5 +26,23 @@ export async function createPost(
     });
   } catch (error) {
     console.log("Error in createPost", error);
+  }
+}
+
+export async function getAllUnclaimedPosts() {
+  try {
+    const { userId } = await auth();
+
+    if (!userId) return;
+
+    const posts = await prisma.post.findMany({
+      where: {
+        claimerId: null,
+      },
+    });
+
+    return posts;
+  } catch (error) {
+    console.log("Error in getAllUnclaimedPosts", error);
   }
 }
