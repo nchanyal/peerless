@@ -24,12 +24,12 @@ export default function SubNavbar() {
   };
 
   return (
-    <div>
+    <div className="overflow-auto">
       <h1 className="text-3xl font-semibold text-gray-800 my-8">
         Item Requests
       </h1>
-      <div className="flex justify-between">
-        <div className="flex justify-between flex-wrap w-60">
+      <div className="flex justify-between min-w-98">
+        <div className="flex gap-6 w-60">
           <Button
             className={`${
               isAvailable

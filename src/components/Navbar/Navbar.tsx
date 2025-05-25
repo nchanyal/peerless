@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 
 export default function Navbar() {
   return (
-    <div className="h-20 bg-gray-50 border-b-2 border-b-gray-300">
+    <div className="h-20 bg-gray-50 border-b-2 border-b-gray-300 overflow-hidden">
       <div className="flex items-center justify-between mx-8 h-full">
         <h1 className="text-3xl text-gray-800">Peerless</h1>
         <SignOutButton>
