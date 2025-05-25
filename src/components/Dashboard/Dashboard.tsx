@@ -3,10 +3,11 @@ import Navbar from "../Navbar/Navbar";
 import SubNavbar from "../SubNavbar/SubNavbar";
 import { getAllUnclaimedPosts } from "@/actions/post.actions";
 import Posts from "../Posts/Posts";
+import { posts } from "@/lib/posts";
 
 export default async function Dashboard() {
   /* await syncUser() */ // uncomment when I do the final check
-  const posts = await getAllUnclaimedPosts();
+  /* const posts = await getAllUnclaimedPosts(); */ // uncomment when I do the final check
 
   return (
     <div className="min-h-full flex flex-col">

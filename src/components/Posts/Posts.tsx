@@ -1,3 +1,5 @@
+import PostCard from "../PostCard/PostCard";
+
 interface PostsProps {
   posts: Post[] | undefined;
 }
@@ -14,12 +16,16 @@ interface Post {
 
 export default function Posts({ posts = [] }: PostsProps) {
   return (
-    <div>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>{post.itemName}</li>
-        ))}
-      </ul>
+    <div className="my-8 grid gap-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+      {posts.map((post) => (
+        <PostCard
+          key={post.id}
+          title={post.itemName}
+          imageUrl={post.imageUrl}
+          pickupCountry={post.pickupCountry}
+          deliveryCity={post.deliveryCity}
+        />
+      ))}
     </div>
   );
 }
