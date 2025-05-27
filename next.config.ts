@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "281jyfszrx.ufs.sh",
+        pathname: "/f/*",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

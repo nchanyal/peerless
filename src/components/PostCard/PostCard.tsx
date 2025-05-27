@@ -1,18 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-interface PostCardProps {
-  title: string;
-  imageUrl: string;
-  pickupCountry: string;
-  deliveryCity: string;
-}
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PostCardProps } from "@/interfaces/PostCardProps";
 
 export default function PostCard({
   title,
@@ -21,7 +8,7 @@ export default function PostCard({
   deliveryCity,
 }: PostCardProps) {
   return (
-    <Card>
+    <Card className="hover:cursor-pointer hover:bg-gray-50">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>

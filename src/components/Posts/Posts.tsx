@@ -1,4 +1,4 @@
-import PostCard from "../PostCard/PostCard";
+import PostCardDialog from "../PostCardDialog/PostCardDialog";
 
 interface PostsProps {
   posts: Post[] | undefined;
@@ -18,7 +18,7 @@ export default function Posts({ posts = [] }: PostsProps) {
   return (
     <div className="my-8 grid gap-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
       {posts.map((post) => (
-        <PostCard
+        <PostCardDialog
           key={post.id}
           title={post.itemName}
           imageUrl={post.imageUrl}
