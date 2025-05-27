@@ -10,8 +10,8 @@ describe("<Posts />", () => {
   it("should display a list of posts", () => {
     render(<Posts posts={posts} />);
 
-    expect(screen.getByText("Coffee")).toBeInTheDocument();
+    expect(screen.getByText("Headphones")).toBeInTheDocument();
     expect(screen.getByText("Beans")).toBeInTheDocument();
-    expect(screen.getByText("Coffee")).toBeInTheDocument();
+    expect(screen.getByText("Chips")).toBeInTheDocument();
   });
 });
