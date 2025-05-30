@@ -5,7 +5,7 @@ export const posts = [
     claimerId: null,
     itemName: "Headphones",
     imageUrl:
-      "https://281jyfszrx.ufs.sh/f/edYAN59hpaUfTcfAuNvbZmX75O1YCpKQ3ju0nq2NgotUDcWG",
+      "https://281jyfszrx.ufs.sh/f/edYAN59hpaUf6TmUKXQsgjXrm3L29Mb4VviJRxtFqEH7PC5S",
     pickupCountry: "United Kingdom",
     deliveryCity: "Washington, DC",
   },

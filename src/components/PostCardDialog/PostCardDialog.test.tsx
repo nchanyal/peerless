@@ -1,11 +1,52 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PostCardDialog from "./PostCardDialog";
 
+const Wrapper = () => {
+  const handleClick = (postId: number, fileKey: string | null) => {};
+
+  return (
+    <PostCardDialog
+      title=""
+      imageUrl=""
+      pickupCountry=""
+      deliveryCity=""
+      postId={1}
+      handleClick={handleClick}
+    />
+  );
+};
+
 describe("<PostCardDialog>", () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it("should render", () => {
-    render(
-      <PostCardDialog title="" imageUrl="" pickupCountry="" deliveryCity="" />
-    );
+    render(<Wrapper />);
+  });
+
+  it("should display a delete button", async () => {
+    render(<Wrapper />);
+
+    const postCard = screen.getByTestId("post-id-1");
+
+    await userEvent.click(postCard);
+
+    expect(screen.getByText("Delete")).toBeInTheDocument();
+  });
+
+  it("should close after the delete button is clicked", async () => {
+    render(<Wrapper />);
+
+    const postCard = screen.getByTestId("post-id-1");
+
+    await userEvent.click(postCard);
+
+    const deleteButton = screen.getByText("Delete");
+
+    await userEvent.click(deleteButton);
+
+    expect(deleteButton).not.toBeInTheDocument();
   });
 });

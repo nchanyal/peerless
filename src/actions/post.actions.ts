@@ -46,3 +46,19 @@ export async function getAllUnclaimedPosts() {
     console.log("Error in getAllUnclaimedPosts", error);
   }
 }
+
+export async function deletePost(postId: number) {
+  try {
+    const { userId } = await auth();
+
+    if (!userId) return;
+
+    await prisma.post.delete({
+      where: {
+        id: postId,
+      },
+    });
+  } catch (error) {
+    console.log("Error in deletePost", error);
+  }
+}

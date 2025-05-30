@@ -1,9 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PostCardProps } from "@/interfaces/PostCardProps";
+
+interface PostCardProps {
+  title: string;
+  pickupCountry: string;
+  deliveryCity: string;
+}
 
 export default function PostCard({
   title,
-  imageUrl,
   pickupCountry,
   deliveryCity,
 }: PostCardProps) {
