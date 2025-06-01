@@ -4,13 +4,29 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { Package, Lock } from "lucide-react";
 import AddPostButton from "../AddPostButton/AddPostButton";
+import { SetStateAction } from "react";
+import { Post } from "@/interfaces/Post";
 
 enum ROUTE {
   Available = "/dashboard/available",
   Claimed = "/dashboard/claimed",
 }
 
-export default function SubNavbar() {
+interface SubNavbarProps {
+  itemName: string;
+  pickupCountry: string;
+  deliveryCity: string;
+  imageUrl: string;
+  setPostArray: React.Dispatch<SetStateAction<Post[]>>;
+}
+
+export default function SubNavbar({
+  itemName,
+  pickupCountry,
+  deliveryCity,
+  imageUrl,
+  setPostArray,
+}: SubNavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -56,10 +72,11 @@ export default function SubNavbar() {
           </Button>
         </div>
         <AddPostButton
-          itemName=""
-          pickupCountry=""
-          deliveryCity=""
-          imageUrl=""
+          itemName={itemName}
+          pickupCountry={pickupCountry}
+          deliveryCity={deliveryCity}
+          imageUrl={imageUrl}
+          setPostArray={setPostArray}
         />
       </div>
     </div>

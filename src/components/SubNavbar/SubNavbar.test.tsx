@@ -3,12 +3,29 @@ import userEvent from "@testing-library/user-event";
 import SubNavbar from "./SubNavbar";
 import { useRouter, usePathname } from "next/navigation";
 import { vi } from "vitest";
+import { posts } from "@/lib/posts";
+import { SetStateAction, useState } from "react";
+import { Post } from "@/interfaces/Post";
 
 // Replace Jest mocks with Vitest mocks
 vi.mock("next/navigation", () => ({
   useRouter: vi.fn(),
   usePathname: vi.fn(),
 }));
+
+const Wrapper = () => {
+  const [postArray, setPostArray] = useState(posts);
+
+  return (
+    <SubNavbar
+      itemName=""
+      pickupCountry=""
+      deliveryCity=""
+      imageUrl=""
+      setPostArray={setPostArray}
+    />
+  );
+};
 
 describe("<SubNavBar />", () => {
   let pushMock: ReturnType<typeof vi.fn>;
@@ -24,11 +41,11 @@ describe("<SubNavBar />", () => {
   });
 
   it("should exist", () => {
-    render(<SubNavbar />);
+    render(<Wrapper />);
   });
 
   it("should render a pair of buttons on the left", () => {
-    render(<SubNavbar />);
+    render(<Wrapper />);
     const availableButton = screen.getByText("Available");
     const claimedButton = screen.getByText("Claimed");
 
@@ -40,7 +57,7 @@ describe("<SubNavBar />", () => {
     (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
       "/dashboard/available"
     );
-    render(<SubNavbar />);
+    render(<Wrapper />);
 
     const availableButton = screen.getByText("Available");
     const claimedButton = screen.getByText("Claimed");
@@ -53,7 +70,7 @@ describe("<SubNavBar />", () => {
     (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
       "/dashboard/available"
     );
-    const { rerender } = render(<SubNavbar />);
+    const { rerender } = render(<Wrapper />);
 
     const availableButton = screen.getByText("Available");
     const claimedButton = screen.getByText("Claimed");
@@ -64,7 +81,7 @@ describe("<SubNavBar />", () => {
     (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
       "/dashboard/claimed"
     );
-    rerender(<SubNavbar />);
+    rerender(<Wrapper />);
 
     expect(claimedButton).toHaveAttribute("aria-selected", "true");
     expect(availableButton).toHaveAttribute("aria-selected", "false");
@@ -74,7 +91,7 @@ describe("<SubNavBar />", () => {
     (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
       "/dashboard/available"
     );
-    const { rerender } = render(<SubNavbar />);
+    const { rerender } = render(<Wrapper />);
 
     const availableButton = screen.getByText("Available");
     const claimedButton = screen.getByText("Claimed");
@@ -85,7 +102,7 @@ describe("<SubNavBar />", () => {
     (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
       "/dashboard/claimed"
     );
-    rerender(<SubNavbar />);
+    rerender(<Wrapper />);
 
     await userEvent.click(availableButton);
     expect(pushMock).toHaveBeenCalledWith("/dashboard/available");
@@ -93,7 +110,7 @@ describe("<SubNavBar />", () => {
     (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
       "/dashboard/available"
     );
-    rerender(<SubNavbar />);
+    rerender(<Wrapper />);
 
     expect(availableButton).toHaveAttribute("aria-selected", "true");
     expect(claimedButton).toHaveAttribute("aria-selected", "false");
@@ -103,7 +120,7 @@ describe("<SubNavBar />", () => {
     (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
       "/dashboard/available"
     );
-    render(<SubNavbar />);
+    render(<Wrapper />);
 
     const availableButton = screen.getByText("Available");
 
@@ -117,7 +134,7 @@ describe("<SubNavBar />", () => {
     (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
       "/dashboard/claimed"
     );
-    render(<SubNavbar />);
+    render(<Wrapper />);
 
     const claimedButton = screen.getByText("Claimed");
 

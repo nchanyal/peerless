@@ -1,18 +1,32 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PostForm from "./PostForm";
+import { useState } from "react";
+import { posts } from "@/lib/posts";
+
+const Wrapper = () => {
+  const [postArray, setPostArray] = useState(posts);
+  const [open, setOpen] = useState(false);
+
+  return (
+    <PostForm
+      itemName=""
+      pickupCountry=""
+      deliveryCity=""
+      imageUrl=""
+      setOpen={setOpen}
+      setPostArray={setPostArray}
+    />
+  );
+};
 
 describe("<PostForm />", () => {
   it("should render", () => {
-    render(
-      <PostForm itemName="" pickupCountry="" deliveryCity="" imageUrl="" />
-    );
+    render(<Wrapper />);
   });
 
   it("shows a validation error when the item name is too short", async () => {
-    render(
-      <PostForm itemName="" pickupCountry="" deliveryCity="" imageUrl="" />
-    );
+    render(<Wrapper />);
 
     const itemNameInput = screen.getByLabelText("Item Name");
     const submitButton = screen.getByRole("button", { name: "Submit" });
@@ -28,9 +42,7 @@ describe("<PostForm />", () => {
   });
 
   it("shows a validation error when the item name is too long", async () => {
-    render(
-      <PostForm itemName="" pickupCountry="" deliveryCity="" imageUrl="" />
-    );
+    render(<Wrapper />);
 
     const itemNameInput = screen.getByLabelText("Item Name");
     const submitButton = screen.getByRole("button", { name: "Submit" });
@@ -47,9 +59,7 @@ describe("<PostForm />", () => {
   });
 
   it("shows a validation error when the pickup country is too short", async () => {
-    render(
-      <PostForm itemName="" pickupCountry="" deliveryCity="" imageUrl="" />
-    );
+    render(<Wrapper />);
 
     const pickupCountryInput = screen.getByLabelText("Pickup Country");
     const submitButton = screen.getByRole("button", { name: "Submit" });
@@ -65,9 +75,7 @@ describe("<PostForm />", () => {
   });
 
   it("shows a validation error when the pickup country is too long", async () => {
-    render(
-      <PostForm itemName="" pickupCountry="" deliveryCity="" imageUrl="" />
-    );
+    render(<Wrapper />);
 
     const pickupCountryInput = screen.getByLabelText("Pickup Country");
     const submitButton = screen.getByRole("button", { name: "Submit" });
@@ -84,9 +92,7 @@ describe("<PostForm />", () => {
   });
 
   it("shows a validation error when the delivery city is too short", async () => {
-    render(
-      <PostForm itemName="" pickupCountry="" deliveryCity="" imageUrl="" />
-    );
+    render(<Wrapper />);
 
     const deliveryCityInput = screen.getByLabelText("Delivery City");
     const submitButton = screen.getByRole("button", { name: "Submit" });
@@ -102,9 +108,7 @@ describe("<PostForm />", () => {
   });
 
   it("shows a validation error when the delivery city is too long", async () => {
-    render(
-      <PostForm itemName="" pickupCountry="" deliveryCity="" imageUrl="" />
-    );
+    render(<Wrapper />);
 
     const deliveryCityInput = screen.getByLabelText("Delivery City");
     const submitButton = screen.getByRole("button", { name: "Submit" });
@@ -121,9 +125,7 @@ describe("<PostForm />", () => {
   });
 
   it("shows a validation error when the image url does not exist", async () => {
-    render(
-      <PostForm itemName="" pickupCountry="" deliveryCity="" imageUrl="" />
-    );
+    render(<Wrapper />);
 
     const submitButton = screen.getByRole("button", { name: "Submit" });
 

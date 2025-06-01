@@ -2,21 +2,48 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import AddPostButton from "../AddPostButton/AddPostButton";
 import { vi } from "vitest";
+import { useState } from "react";
+import { posts } from "@/lib/posts";
 
-vi.mock("../../actions/post.actions", () => ({
-  createPost: vi.fn().mockResolvedValue(undefined),
+vi.mock("@/actions/post.actions", () => ({
+  deletePost: vi.fn(),
+  createPost: vi
+    .fn()
+    .mockImplementation(
+      (
+        itemName: string,
+        imageUrl: string,
+        pickupCountry: string,
+        deliveryCity: string
+      ) => ({
+        id: 6,
+        authorId: 6,
+        claimerId: null,
+        itemName: "Bread",
+        imageUrl: "https://example.com/f/example.png",
+        pickupCountry: "Ethiopia",
+        deliveryCity: "Washington, DC",
+      })
+    ),
 }));
+
+const Wrapper = () => {
+  const [postArray, setPostArray] = useState(posts);
+
+  return (
+    <AddPostButton
+      itemName="Coffee Beans"
+      pickupCountry="Ethiopia"
+      deliveryCity="Washington, DC"
+      imageUrl="https://example.com/example.png"
+      setPostArray={setPostArray}
+    />
+  );
+};
 
 describe("<PostForm />", () => {
   it("should close the dialog when the form is submitted", async () => {
-    render(
-      <AddPostButton
-        itemName="Coffee Beans"
-        pickupCountry="Ethiopia"
-        deliveryCity="Washington, DC"
-        imageUrl="https://example.com/example.png"
-      />
-    );
+    render(<Wrapper />);
 
     const addButton = screen.getByRole("button", { name: "Add" });
 

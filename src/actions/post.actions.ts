@@ -15,7 +15,7 @@ export async function createPost(
 
     if (!user) return;
 
-    await prisma.post.create({
+    const post = await prisma.post.create({
       data: {
         authorId: user.id,
         itemName: itemName,
@@ -24,6 +24,8 @@ export async function createPost(
         deliveryCity: deliveryCity,
       },
     });
+
+    return post;
   } catch (error) {
     console.log("Error in createPost", error);
   }

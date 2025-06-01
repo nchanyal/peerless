@@ -16,10 +16,19 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { UploadButton } from "@/utils/uploadthing";
-import { PostFormProps } from "@/interfaces/PostFormProps";
 import { createPost } from "@/actions/post.actions";
 import { twMerge } from "tailwind-merge";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
+import { Post } from "@/interfaces/Post";
+
+interface PostFormProps {
+  itemName: string;
+  pickupCountry: string;
+  deliveryCity: string;
+  imageUrl: string;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setPostArray: React.Dispatch<SetStateAction<Post[]>>;
+}
 
 const formSchema = z.object({
   itemName: z
@@ -43,6 +52,7 @@ export default function PostForm({
   deliveryCity,
   imageUrl,
   setOpen,
+  setPostArray,
 }: PostFormProps) {
   const [isDisabled, setIsDisabled] = useState(false);
 
@@ -64,15 +74,21 @@ export default function PostForm({
         setIsDisabled(true);
 
         // Create a new post based on what the user filled in the fields
-        await createPost(
+        const post = await createPost(
           values.itemName,
           values.imageUrl,
           values.pickupCountry,
           values.deliveryCity
         );
 
+        // Quit the function if the post is undefined
+        if (!post) return;
+
         // Close the dialog
         setOpen(false);
+
+        // Add the post to the dashboard
+        setPostArray((posts) => [...posts, post]);
       } catch (error) {
         console.log("Error in form submission", error);
       }

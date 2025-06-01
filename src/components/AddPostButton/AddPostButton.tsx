@@ -9,15 +9,24 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { CirclePlus } from "lucide-react";
-import { PostFormProps } from "@/interfaces/PostFormProps";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
+import { Post } from "@/interfaces/Post";
+
+interface AddPostButtonProps {
+  itemName: string;
+  pickupCountry: string;
+  deliveryCity: string;
+  imageUrl: string;
+  setPostArray: React.Dispatch<SetStateAction<Post[]>>;
+}
 
 export default function AddPostButton({
   itemName,
   pickupCountry,
   deliveryCity,
   imageUrl,
-}: PostFormProps) {
+  setPostArray,
+}: AddPostButtonProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -41,6 +50,7 @@ export default function AddPostButton({
           deliveryCity={deliveryCity}
           imageUrl={imageUrl}
           setOpen={setOpen}
+          setPostArray={setPostArray}
         />
       </DialogContent>
     </Dialog>

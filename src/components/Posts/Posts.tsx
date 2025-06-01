@@ -1,36 +1,22 @@
-"use client";
-
-import { deleteFile } from "@/actions/image";
+import { deleteImageFile } from "@/actions/image";
 import PostCardDialog from "../PostCardDialog/PostCardDialog";
 import { deletePost } from "@/actions/post.actions";
-import { useState } from "react";
+import { Post } from "@/interfaces/Post";
+import { SetStateAction } from "react";
 
 interface PostsProps {
-  posts: Post[] | undefined;
+  postArray: Post[];
+  setPostArray: React.Dispatch<SetStateAction<Post[]>>;
 }
 
-interface Post {
-  id: number;
-  authorId: number;
-  claimerId: number | null;
-  itemName: string;
-  imageUrl: string;
-  pickupCountry: string;
-  deliveryCity: string;
-}
-
-export default function Posts({ posts = [] }: PostsProps) {
-  const [postArray, setPostArray] = useState(posts);
-
+export default function Posts({ postArray, setPostArray }: PostsProps) {
   const handleClick = async (postId: number, fileKey: string | null) => {
     try {
       await deletePost(postId);
-      await deleteFile(fileKey);
+      await deleteImageFile(fileKey);
 
       // Delete the post whose id was passed as a parameter from the dashboard
-      setPostArray((prevState) =>
-        prevState.filter((post) => post.id !== postId)
-      );
+      setPostArray((posts) => posts.filter((post) => post.id !== postId));
     } catch (error) {
       console.log("Error when deleting post", error);
     }

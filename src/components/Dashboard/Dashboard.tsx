@@ -1,21 +1,41 @@
-import { syncUser } from "@/actions/user.actions";
+"use client";
+
 import Navbar from "../Navbar/Navbar";
 import SubNavbar from "../SubNavbar/SubNavbar";
-import { getAllUnclaimedPosts } from "@/actions/post.actions";
 import Posts from "../Posts/Posts";
-import { posts } from "@/lib/posts";
+import { useState } from "react";
+import { Post } from "@/interfaces/Post";
 
-export default async function Dashboard() {
-  /* await syncUser() */ // uncomment when I do the final check
-  /* const posts = await getAllUnclaimedPosts(); */ // uncomment when I do the final check
+interface DashboardProps {
+  posts: Post[];
+  itemName: string;
+  pickupCountry: string;
+  deliveryCity: string;
+  imageUrl: string;
+}
+
+export default function Dashboard({
+  posts,
+  itemName,
+  pickupCountry,
+  deliveryCity,
+  imageUrl,
+}: DashboardProps) {
+  const [postArray, setPostArray] = useState(posts);
 
   return (
     <div className="min-h-full flex flex-col">
       <Navbar />
       <main className="bg-gray-100 flex-1">
         <div className="w-full max-w-[1400px] mx-auto px-8">
-          <SubNavbar />
-          <Posts posts={posts} />
+          <SubNavbar
+            itemName={itemName}
+            pickupCountry={pickupCountry}
+            deliveryCity={deliveryCity}
+            imageUrl={imageUrl}
+            setPostArray={setPostArray}
+          />
+          <Posts postArray={postArray} setPostArray={setPostArray} />
         </div>
       </main>
     </div>
