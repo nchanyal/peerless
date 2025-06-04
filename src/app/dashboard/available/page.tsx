@@ -4,13 +4,13 @@ import { posts } from "@/lib/posts";
 import { syncUser } from "@/actions/user.actions";
 import { getAllUnclaimedPosts } from "@/actions/post.actions";
 
-export default function AvailablePage() {
-  /* await syncUser() */ // uncomment when I do the final check
+export default async function AvailablePage() {
+  /* await syncUser(); */ // uncomment when I do the final check
   /* const posts = await getAllUnclaimedPosts(); */ // uncomment when I do the final check
 
   return (
     <Dashboard
-      posts={posts}
+      posts={posts ? posts : []}
       itemName=""
       pickupCountry=""
       deliveryCity=""

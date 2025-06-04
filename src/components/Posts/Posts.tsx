@@ -15,7 +15,7 @@ export default function Posts({ postArray, setPostArray }: PostsProps) {
       await deletePost(postId);
       await deleteImageFile(fileKey);
 
-      // Delete the post whose id was passed as a parameter from the dashboard
+      // Delete the post whose id was passed as a parameter from Dashboard
       setPostArray((posts) => posts.filter((post) => post.id !== postId));
     } catch (error) {
       console.log("Error when deleting post", error);
@@ -33,6 +33,7 @@ export default function Posts({ postArray, setPostArray }: PostsProps) {
           pickupCountry={post.pickupCountry}
           deliveryCity={post.deliveryCity}
           handleClick={handleClick}
+          setPostArray={setPostArray}
         />
       ))}
     </div>

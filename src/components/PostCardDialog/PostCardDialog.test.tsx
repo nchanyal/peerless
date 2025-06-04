@@ -1,8 +1,11 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PostCardDialog from "./PostCardDialog";
+import { useState } from "react";
+import { posts } from "@/lib/posts";
 
 const Wrapper = () => {
+  const [postArray, setPostArray] = useState(posts);
   const handleClick = (postId: number, fileKey: string | null) => {};
 
   return (
@@ -13,6 +16,7 @@ const Wrapper = () => {
       deliveryCity=""
       postId={1}
       handleClick={handleClick}
+      setPostArray={setPostArray}
     />
   );
 };

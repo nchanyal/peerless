@@ -24,6 +24,15 @@ vi.mock("@/actions/post.actions", () => ({
         deliveryCity: "Washington, DC",
       })
     ),
+  updateClaimerId: vi.fn().mockImplementation(() => ({
+    id: 5,
+    authorId: 5,
+    claimerId: null,
+    itemName: "Tea",
+    imageUrl: "",
+    pickupCountry: "Ethiopia",
+    deliveryCity: "Washington, DC",
+  })),
 }));
 
 vi.mock("@/server/uploadthing", () => ({
@@ -67,5 +76,27 @@ describe("<Dashboard />", () => {
     await userEvent.click(submitButton);
 
     expect(screen.getByText("Bread")).toBeInTheDocument();
+  });
+
+  it("removes a post when the post is claimed", async () => {
+    render(
+      <Dashboard
+        posts={posts}
+        itemName=""
+        pickupCountry=""
+        deliveryCity=""
+        imageUrl=""
+      />
+    );
+
+    const postCard = screen.getByTestId("post-id-5");
+
+    await userEvent.click(postCard);
+
+    const claimButton = screen.getByText("Claim");
+
+    await userEvent.click(claimButton);
+
+    expect(postCard).not.toBeInTheDocument();
   });
 });

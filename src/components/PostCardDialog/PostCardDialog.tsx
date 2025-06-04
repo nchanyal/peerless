@@ -11,7 +11,9 @@ import PostCard from "../PostCard/PostCard";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { extractFileKey } from "@/lib/extractFileKey";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
+import { updateClaimerId } from "@/actions/post.actions";
+import { Post } from "@/interfaces/Post";
 
 interface PostCardDialogProps {
   postId: number;
@@ -20,6 +22,7 @@ interface PostCardDialogProps {
   pickupCountry: string;
   deliveryCity: string;
   handleClick: (postId: number, fileKey: string | null) => void;
+  setPostArray: React.Dispatch<SetStateAction<Post[]>>;
 }
 
 export default function PostCardDialog({
@@ -29,6 +32,7 @@ export default function PostCardDialog({
   pickupCountry,
   deliveryCity,
   handleClick,
+  setPostArray,
 }: PostCardDialogProps) {
   // State variables for opening and closing the dialog
   const [open, setOpen] = useState(false);
@@ -38,6 +42,25 @@ export default function PostCardDialog({
   const handleDeleteClick = () => {
     handleClick(postId, fileKey);
     setOpen(false);
+  };
+
+  const handleClaimClick = async () => {
+    try {
+      const post = await updateClaimerId(postId);
+
+      // Quit the function if the post is undefined
+      if (!post) {
+        console.log("Post failed to update");
+        return;
+      }
+
+      // Delete the post whose id was passed as a prop from Dashboard
+      setPostArray((posts) => posts.filter((post) => post.id !== postId));
+
+      setOpen(false);
+    } catch (error) {
+      console.log("Error in handleClaimClick", error);
+    }
   };
 
   return (
@@ -78,6 +101,7 @@ export default function PostCardDialog({
           <Button
             type="button"
             className={`bg-blue-700 hover:bg-blue-600 hover:text-gray-50 disabled:bg-blue-500 w-19`}
+            onClick={handleClaimClick}
           >
             Claim
           </Button>
