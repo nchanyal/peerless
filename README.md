@@ -1,19 +1,17 @@
 ## Background
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-This project was built as a prototype MVP for a client who was interested in a peer-to-peer delivery service. Core functionalities include user
+MVP for a peer-to-peer delivery service application. Core functionalities include user
 account management, the ability to post, view, and delete delivery requests, as well as the capability for users to claim and fulfill posted requests.
 
 ## Project Structure
 
 `src/app/dashboard/available/page.tsx` and `src/app/dashboard/claimed/page.tsx` serve the routes on `dashboard/available/` and `dashboard/claimed/`,
-respectively. Each of them are made of React components that can be found in `src/components`.
+respectively. Each of them is made of React components that can be found in `src/components`.
 
 Server actions can be found in `src/actions` and help perform CRUD operations in Next.js.
 
-Unit and integration tests are run through Vitest by typing `npm run test` in the terminal. Each test lives in the same folder as it's component
-for better association. It's worth noting that all tests fall the AAA pattern for frontend testing.
+Unit and integration tests are run through Vitest by typing `npm run test` in the terminal. Each test lives in the same folder as its component
+for better association between test and application code. It's worth noting that all tests follow the AAA pattern.
 
 ## Tech Stack
 
@@ -21,7 +19,7 @@ for better association. It's worth noting that all tests fall the AAA pattern fo
 - React.js
 - Tailwind CSS
 - ShadCN UI
-- Neon Postgres (backend)
+- Neon Postgres (database)
 - Prisma
 - Clerk (user account management)
 - React Testing Library
