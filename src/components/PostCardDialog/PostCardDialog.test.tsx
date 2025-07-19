@@ -3,6 +3,12 @@ import userEvent from "@testing-library/user-event";
 import PostCardDialog from "./PostCardDialog";
 import { useState } from "react";
 import { posts } from "@/lib/posts";
+import { vi } from "vitest";
+import { usePathname } from "next/navigation";
+
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(),
+}));
 
 const Wrapper = () => {
   const [postArray, setPostArray] = useState(posts);
@@ -52,5 +58,20 @@ describe("<PostCardDialog>", () => {
     await userEvent.click(deleteButton);
 
     expect(deleteButton).not.toBeInTheDocument();
+  });
+
+  it("should disable the 'Claimed' button when on the claimed tab", async () => {
+    (usePathname as ReturnType<typeof vi.fn>).mockReturnValue(
+      "/dashboard/claimed"
+    );
+    render(<Wrapper />);
+
+    const postCard = screen.getByTestId("post-id-1");
+
+    await userEvent.click(postCard);
+
+    const claimButton = screen.getByText("Claim *");
+
+    expect(claimButton).toHaveAttribute("aria-disabled", "true");
   });
 });

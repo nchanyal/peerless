@@ -14,6 +14,7 @@ import { extractFileKey } from "@/lib/extractFileKey";
 import { SetStateAction, useState } from "react";
 import { updateClaimerId } from "@/actions/post.actions";
 import { Post } from "@/interfaces/Post";
+import { usePathname } from "next/navigation";
 
 interface PostCardDialogProps {
   postId: number;
@@ -36,6 +37,8 @@ export default function PostCardDialog({
 }: PostCardDialogProps) {
   // State variables for opening and closing the dialog
   const [open, setOpen] = useState(false);
+
+  const pathname = usePathname();
 
   const fileKey = extractFileKey(imageUrl);
 
@@ -102,8 +105,10 @@ export default function PostCardDialog({
             type="button"
             className={`bg-blue-700 hover:bg-blue-600 hover:text-gray-50 disabled:bg-blue-500 w-19`}
             onClick={handleClaimClick}
+            disabled={pathname === "/dashboard/claimed" ? true : false}
+            aria-disabled={pathname === "/dashboard/claimed" ? true : false}
           >
-            Claim
+            Claim *
           </Button>
           <Button
             type="button"
@@ -112,6 +117,11 @@ export default function PostCardDialog({
           >
             Delete
           </Button>
+        </div>
+        <div>
+          <p className="text-sm">
+            * Note: You can't claim your own item request
+          </p>
         </div>
       </DialogContent>
     </Dialog>

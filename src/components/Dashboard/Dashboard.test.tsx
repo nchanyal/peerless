@@ -93,7 +93,7 @@ describe("<Dashboard />", () => {
 
     await userEvent.click(postCard);
 
-    const claimButton = screen.getByText("Claim");
+    const claimButton = screen.getByText("Claim *");
 
     await userEvent.click(claimButton);
 
