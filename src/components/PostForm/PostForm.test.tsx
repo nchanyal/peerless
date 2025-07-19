@@ -35,7 +35,7 @@ describe("<PostForm />", () => {
     await userEvent.click(submitButton);
 
     const formMessage = screen.getByText(
-      "Item name must be at least 3 characters!"
+      "Item name must have at least 3 characters!"
     );
 
     expect(formMessage).toBeInTheDocument();
