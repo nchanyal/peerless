@@ -120,7 +120,7 @@ export default function PostCardDialog({
         </div>
         <div>
           <p className="text-sm">
-            * Note: You can't claim your own item request
+            * Note: You can&apos;t claim your own item request
           </p>
         </div>
       </DialogContent>

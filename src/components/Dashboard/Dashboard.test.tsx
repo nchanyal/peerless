@@ -6,24 +6,15 @@ import { vi } from "vitest";
 
 vi.mock("@/actions/post.actions", () => ({
   deletePost: vi.fn(),
-  createPost: vi
-    .fn()
-    .mockImplementation(
-      (
-        itemName: string,
-        imageUrl: string,
-        pickupCountry: string,
-        deliveryCity: string
-      ) => ({
-        id: 6,
-        authorId: 6,
-        claimerId: null,
-        itemName: "Bread",
-        imageUrl: "https://example.com/f/example.png",
-        pickupCountry: "Ethiopia",
-        deliveryCity: "Washington, DC",
-      })
-    ),
+  createPost: vi.fn().mockImplementation(() => ({
+    id: 6,
+    authorId: 6,
+    claimerId: null,
+    itemName: "Bread",
+    imageUrl: "https://example.com/f/example.png",
+    pickupCountry: "Ethiopia",
+    deliveryCity: "Washington, DC",
+  })),
   updateClaimerId: vi.fn().mockImplementation(() => ({
     id: 5,
     authorId: 5,
