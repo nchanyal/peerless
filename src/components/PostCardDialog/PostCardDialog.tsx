@@ -15,6 +15,7 @@ import { SetStateAction, useState } from "react";
 import { updateClaimerId } from "@/actions/post.actions";
 import { Post } from "@/interfaces/Post";
 import { usePathname } from "next/navigation";
+import { DialogDescription } from "@radix-ui/react-dialog";
 
 interface PostCardDialogProps {
   postId: number;
@@ -80,6 +81,7 @@ export default function PostCardDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{`Item request for ${title}`}</DialogDescription>
         </DialogHeader>
         <div className="pb-3">
           <p className="pb-4">Pickup Country: {pickupCountry}</p>
