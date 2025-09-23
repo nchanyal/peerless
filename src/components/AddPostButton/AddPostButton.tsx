@@ -11,6 +11,7 @@ import {
 import { CirclePlus } from "lucide-react";
 import { SetStateAction, useState } from "react";
 import { Post } from "@/interfaces/Post";
+import { usePathname } from "next/navigation";
 
 interface AddPostButtonProps {
   itemName: string;
@@ -28,11 +29,16 @@ export default function AddPostButton({
   setPostArray,
 }: AddPostButtonProps) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className={`bg-blue-700 hover:bg-blue-600 hover:text-gray-50`}>
+        <Button
+          className={`bg-blue-700 hover:bg-blue-600 hover:text-gray-50`}
+          disabled={pathname === "/dashboard/claimed" ? true : false}
+          aria-disabled={pathname === "/dashboard/claimed" ? true : false}
+        >
           <CirclePlus />
           Add
         </Button>
