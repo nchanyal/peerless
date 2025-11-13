@@ -1,5 +1,3 @@
-![demo](./demo.gif)
-
 ## Background
 
 Prototype for a peer-to-peer delivery service application intended only for demonstration purposes. Core functionalities include user
