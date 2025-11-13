@@ -1,7 +1,9 @@
+![demo](./demo.gif)
+
 ## Background
 
-MVP for a peer-to-peer delivery service application. Core functionalities include user
-account management, the ability to post, view, and delete delivery requests, as well as the capability for users to claim and fulfill posted requests.
+Prototype for a peer-to-peer delivery service application intended only for demonstration purposes. Core functionalities include user
+account management, the ability to post, view, and delete delivery requests, as well as the capability for users to claim posted requests.
 
 ## Project Structure
 
