@@ -1,3 +1,8 @@
+## Live Demo
+
+- Production URL (requires authentication): https://peerless-wheat.vercel.app/
+- 🎥 Demo Video: [Watch the walkthrough](https://youtu.be/CURmH6MJk44?si=zXQ4-uBa0Zm9aX6B)
+
 ## Background
 
 Prototype for a peer-to-peer delivery service application intended only for demonstration purposes. Core functionalities include user
