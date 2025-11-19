@@ -1,7 +1,9 @@
+A proof-of-concept full-stack app with user auth, CRUD features, and basic delivery-request workflows.
+
 ## Live Demo
 
 - Production URL (requires authentication): https://peerless-wheat.vercel.app/
-- 🎥 Demo Video: [Watch the walkthrough](https://youtu.be/CURmH6MJk44?si=zXQ4-uBa0Zm9aX6B)
+- Demo Video: [Watch the walkthrough](https://youtu.be/CURmH6MJk44?si=zXQ4-uBa0Zm9aX6B)
 
 ## Background
 
@@ -66,3 +68,9 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## What I’d Improve Next
+
+- UI polish
+- Additional validations
+- More test coverage
